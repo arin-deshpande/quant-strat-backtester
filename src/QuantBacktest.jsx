@@ -887,6 +887,11 @@ function QuantBacktest() {
                   grid-template-rows: subgrid;
                   row-gap: 0;
                 }
+                /* Keep inputs at their natural height instead of stretching to
+                   match a taller neighbor (like the volatility slider) */
+                .field-row > div > * {
+                  align-self: start;
+                }
                 input[type="range"]::-webkit-slider-thumb {
                   appearance: none;
                   width: 20px;
