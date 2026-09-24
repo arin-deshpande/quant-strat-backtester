@@ -34,7 +34,7 @@ Because data is regenerated on every run, results vary run to run for identical 
 
 ## Running it
 
-Requires Node.js 20 or newer.
+Requires Node.js 20.19+ or 22.12+.
 
 ```bash
 npm install
