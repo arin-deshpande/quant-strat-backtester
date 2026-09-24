@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 
+// Format dollar amounts consistently: -$1,234.50 rather than $-1234.5
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+function formatMoney(value) {
+  // Avoid showing "-$0.00" for tiny negative rounding leftovers
+  return currencyFormatter.format(Math.abs(value) < 0.005 ? 0 : value);
+}
+
 // Generate realistic price data with volatility
 function generatePriceData(days, startPrice = 100, volatility = 0.02, trend = 0.0001) {
   const data = [];
@@ -1292,7 +1299,7 @@ function QuantBacktest() {
             <MetricCard 
               label="Ending Balance" 
               sublabel={`Started with $${initialCapital.toLocaleString()}`}
-              value={`$${metrics.finalValue.toLocaleString()}`}
+              value={formatMoney(metrics.finalValue)}
               theme={theme}
             />
           </div>
@@ -1313,7 +1320,7 @@ function QuantBacktest() {
             <MetricCard 
               label="Average Gain" 
               sublabel="Typical profit per trade"
-              value={`$${metrics.avgProfit.toFixed(2)}`}
+              value={formatMoney(metrics.avgProfit)}
               positive={metrics.avgProfit > 0}
               negative={metrics.avgProfit < 0}
               theme={theme}
@@ -1321,7 +1328,7 @@ function QuantBacktest() {
             <MetricCard 
               label="Worst Trade" 
               sublabel="Your biggest single loss"
-              value={`$${metrics.maxLoss.toFixed(2)}`} 
+              value={formatMoney(metrics.maxLoss)} 
               negative={metrics.maxLoss < 0}
               theme={theme}
             />
@@ -1372,13 +1379,13 @@ function QuantBacktest() {
                         </span>
                       </td>
                       <td style={{ padding: '12px', textAlign: 'right', color: theme.text, fontSize: '13px' }}>
-                        ${trade.price.toFixed(2)}
+                        {formatMoney(trade.price)}
                       </td>
                       <td style={{ padding: '12px', textAlign: 'right', color: theme.textTertiary, fontSize: '13px' }}>
                         {trade.shares}
                       </td>
                       <td style={{ padding: '12px', textAlign: 'right', color: theme.text, fontSize: '13px' }}>
-                        ${trade.value.toFixed(2)}
+                        {formatMoney(trade.value)}
                       </td>
                       <td style={{ 
                         padding: '12px', 
@@ -1387,7 +1394,7 @@ function QuantBacktest() {
                         fontSize: '13px',
                         fontWeight: '500',
                       }}>
-                        {trade.profit ? `$${trade.profit.toFixed(2)}` : '—'}
+                        {trade.profit ? formatMoney(trade.profit) : '—'}
                       </td>
                       <td style={{ 
                         padding: '12px', 
