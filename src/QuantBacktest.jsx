@@ -625,7 +625,7 @@ function QuantBacktest() {
           Pick a buying and selling rule, then customize how aggressive it is. We'll simulate what would have happened.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+        <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
           {/* Strategy Selector */}
           <div>
             <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
@@ -819,14 +819,14 @@ function QuantBacktest() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginTop: '32px' }}>
+        <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px', marginTop: '32px' }}>
           {/* Test Period */}
           <div>
             <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
               Test Period
             </label>
             <p style={{ fontSize: '12px', color: theme.textTertiary, marginBottom: '12px', lineHeight: '1.4' }}>
-              How many days of price history to simulate (1 year = 365 days)
+              Days of price history to simulate (365 = 1 year)
             </p>
             <input
               type="number"
@@ -879,6 +879,14 @@ function QuantBacktest() {
                 }}
               />
               <style>{`
+                /* Line up label, description, and input across both columns of a
+                   field row, so a wrapped description doesn't push one input lower */
+                .field-row > div {
+                  display: grid;
+                  grid-row: span 3;
+                  grid-template-rows: subgrid;
+                  row-gap: 0;
+                }
                 input[type="range"]::-webkit-slider-thumb {
                   appearance: none;
                   width: 20px;
@@ -932,7 +940,7 @@ function QuantBacktest() {
           </p>
           
           {strategy === 'ma-crossover' ? (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
               <div>
                 <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
                   Quick Reaction Time
@@ -960,7 +968,7 @@ function QuantBacktest() {
                   Slow Reaction Time
                 </label>
                 <p style={{ fontSize: '12px', color: theme.textTertiary, marginBottom: '12px', lineHeight: '1.4' }}>
-                  Higher number = ignores short-term ups and downs (default: 50 days)
+                  Higher number = reacts slower (default: 50 days)
                 </p>
                 <input
                   type="number"
@@ -979,7 +987,7 @@ function QuantBacktest() {
               </div>
             </div>
           ) : strategy === 'mean-reversion' ? (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
               <div>
                 <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
                   How Far Back to Look
@@ -1027,7 +1035,7 @@ function QuantBacktest() {
               </div>
             </div>
           ) : strategy === 'rsi-momentum' ? (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px' }}>
+            <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0 24px' }}>
               <div>
                 <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
                   RSI Period
@@ -1096,7 +1104,7 @@ function QuantBacktest() {
               </div>
             </div>
           ) : strategy === 'breakout' ? (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
               <div>
                 <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
                   Lookback Period
@@ -1144,7 +1152,7 @@ function QuantBacktest() {
               </div>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            <div className="field-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
               <div>
                 <label style={{ fontSize: '13px', fontWeight: '600', color: theme.text, marginBottom: '6px', display: 'block' }}>
                   Band Period
