@@ -2,19 +2,25 @@
 
 A backtesting sandbox for five classic trading strategies, built as a single self-contained React component. Pick a strategy, tune its parameters, and see how it would have performed against a buy-and-hold baseline.
 
+**[Try the live demo →](https://arin-deshpande.github.io/quant-strat-backtester/)**
+
+![Results for an RSI Momentum run in dark mode, showing return, buy-and-hold, extra gain, ending balance, win rate, trade count, average gain, worst trade, and the start of the trade log](docs/results-dark.webp)
+
 Every strategy runs long-only with all-in position sizing: on a buy signal it converts all available cash into whole shares, and on a sell signal it liquidates the entire position. Any open position is closed at the final price so results are always fully realized.
 
 > **Note:** Price data is randomly generated, not real market data. This is a tool for understanding how strategy logic behaves, not for evaluating whether a strategy would make money.
 
 ## Strategies
 
-**Moving Average Crossover** buys when the short moving average crosses above the long one and sells on the reverse cross. Defaults to a 20-day short window and a 50-day long window.
+The app uses plain-language names for each strategy; the standard name comes first below, with the app's label in parentheses.
 
-**Mean Reversion** buys when price falls below a lower band set at some number of standard deviations under the rolling mean, then sells once price recovers back above the mean. Defaults to a 20-day lookback and a 2σ band.
+**Moving Average Crossover** (Trend Following) buys when the short moving average crosses above the long one and sells on the reverse cross. Defaults to a 20-day short window and a 50-day long window.
+
+**Mean Reversion** (Buy Low, Sell High) buys when price falls below a lower band set at some number of standard deviations under the rolling mean, then sells once price recovers back above the mean. Defaults to a 20-day lookback and a 2σ band.
 
 **RSI Momentum** buys when RSI drops below the oversold threshold and sells when it climbs above the overbought threshold. Defaults to a 14-period RSI with thresholds at 30 and 70.
 
-**Breakout** buys when price exceeds the recent high plus a buffer scaled to the recent range, and sells when it drops under the recent low minus the same buffer. Defaults to a 20-day period and a 0.1 multiplier.
+**Breakout** (Breakout Trading) buys when price exceeds the recent high plus a buffer scaled to the recent range, and sells when it drops under the recent low minus the same buffer. Defaults to a 20-day period and a 0.1 multiplier.
 
 **Bollinger Bands** buys when price touches the lower band and sells when it touches the upper band. Defaults to a 20-day period and a 2σ width.
 
@@ -24,7 +30,19 @@ Three settings apply to every run regardless of strategy — the length of the g
 
 ## Output
 
-Each run reports total return and ending balance, the buy-and-hold return over the same series, and alpha as the difference between them. Alongside those it shows win rate, trade count, the win/loss split, and the average, best, and worst trade by dollar profit. Below the metrics is a full trade log listing date, side, price, share count, and per-trade P&L.
+Each run shows eight metrics: your return, the buy-and-hold return over the same series, the extra gain (alpha) as the difference between them, ending balance, win rate, number of round-trip trades, average profit per trade, and the worst single trade. Below the metrics is a full trade log listing date, buy or sell, price, share count, total value, and per-trade profit or loss.
+
+## Screenshots
+
+**Choosing a strategy and settings (light mode)**
+
+![Settings panel in light mode with RSI Momentum selected, showing starting amount, test period, price choppiness slider, and the RSI period and threshold inputs](docs/settings-light.webp)
+
+**Strategy picker (dark mode)**
+
+![Strategy dropdown open in dark mode, listing Trend Following, Buy Low Sell High, RSI Momentum, Breakout Trading, and Bollinger Bands with a short description of each](docs/strategy-picker.webp)
+
+Both light and dark themes are available from the toggle in the top right.
 
 ## Price generation
 
