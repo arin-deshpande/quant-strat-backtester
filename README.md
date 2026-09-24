@@ -32,19 +32,34 @@ Prices follow a geometric random walk. Each step multiplies the previous price b
 
 Because data is regenerated on every run, results vary run to run for identical parameters. Treat a single run as one sample, not as a measurement.
 
-## Usage
+## Running it
 
-The file exports a single default component with no required props:
+Requires Node.js 20 or newer.
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the local URL Vite prints (usually http://localhost:5173). `npm run build` creates a production build in `dist/`.
+
+## Project structure
+
+- `src/QuantBacktest.jsx`: the whole backtester, including price generation, the five strategies, metrics, and UI
+- `src/main.jsx`: mounts the component
+- `index.html` and `vite.config.js`: the Vite app shell
+
+The component is self-contained, so you can also drop `src/QuantBacktest.jsx` into another React 18+ app:
 
 ```jsx
-import QuantBacktest from './quantitative_trading_strat_backtester';
+import QuantBacktest from './QuantBacktest';
 
 function App() {
   return <QuantBacktest />;
 }
 ```
 
-It expects React 18+ and loads Tailwind from a CDN at mount. Theme preference persists to `localStorage` under `quant-backtest-theme`.
+It loads Tailwind from a CDN at mount. Theme preference persists to `localStorage` under `quant-backtest-theme`.
 
 ## Known limitations
 
