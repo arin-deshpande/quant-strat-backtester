@@ -453,7 +453,12 @@ function QuantBacktest() {
       tailwindScript.onload = () => {
         setTimeout(() => setTailwindLoaded(true), 100);
       };
+      // Most styling is inline, so show the app anyway if the CDN is blocked
+      // or slow rather than leaving the page stuck on "Loading..."
+      tailwindScript.onerror = () => setTailwindLoaded(true);
+      const fallback = setTimeout(() => setTailwindLoaded(true), 3000);
       document.head.appendChild(tailwindScript);
+      return () => clearTimeout(fallback);
     } else {
       setTailwindLoaded(true);
     }
